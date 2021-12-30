@@ -1,8 +1,5 @@
-/*
- * $$Id: ResourceJpaController.java,v 1.2 2011-09-13 13:43:33 pah Exp $$
- *
- *
- *  Created on 07-Jun-2011 by Paul Harrison <paul.harrison@manchester.ac.uk>
+/* 
+ *  Created on 07-Jun-2011 by Paul Harrison  (paul.harrison@manchester.ac.uk) 
  * 
  * This software is published under the terms of the Academic
  * Free License, a copy of which has been included
@@ -29,7 +26,7 @@ import org.javastro.ivoa.jpa.exceptions.PreexistingEntityException;
 
 /**
  *
- * @author Paul Harrison <paul.harrison@manchester.ac.uk>
+ * @author Paul Harrison  (paul.harrison@manchester.ac.uk) 
  */
 public class SimpleJPARepository<T, ID> extends BaseJPARepository implements Repository<T, ID>  {
 

@@ -137,14 +137,12 @@ public class IvoaJAXBUtils {
     }
 
     /**
-     * @param element
-     * @param stylesheet
-     * @param schema
-     *            if non-null then this schema is used to validate
+     * @param element the element to be marshalled 
+     * @param stylesheet a stylesheet to transform the element - may be identity
+     * @param schema if non-null then this schema is used to validate
      * @return
      * @throws JAXBException
      * @throws TransformerException
-     * @TODO - create a family of functions that marshall to other outputs...
      */
     static public Document marshall(JAXBElement<?> element,
             Transformer stylesheet, Schema schema)

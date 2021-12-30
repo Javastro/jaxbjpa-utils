@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
  * @author Paul Harrison (paul.harrison@manchester.ac.uk) 18 Mar 2008
  * @version $Name: not supported by cvs2svn $
  * @since VOTech Stage 7
- * @TODO make the validator use schema as well...
  */
 public class DescriptionValidator<T> {
     /**
@@ -58,11 +57,11 @@ public class DescriptionValidator<T> {
     }
 
     /**
-     * Validates a generic object. Note that the object does not have to 
+     * Validates a specifically typed object. Note that the object does not have to 
      * have an XMLElement annotation (which is why we go to this trouble)
      * 
-     * @param appdesc
-     *            a java object that has suitable jaxb annotations
+     * @param appdesc  a java object that has suitable jaxb annotations
+     *           
      * @return
      */
     public Validation validate(final T appdesc) {
@@ -73,10 +72,10 @@ public class DescriptionValidator<T> {
     }
 
     /**
-     * Validates a generic object
+     * Validates a generic object.
      * 
-     * @param appdesc
-     *            a java object that has suitable jaxb annotations
+     * @param appdesc  a java object that has suitable jaxb annotations
+     *           
      * 
      * @return
      */
