@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <parent>
+      <artifactId>javastro-mavenbase</artifactId>
+      <groupId>org.javastro</groupId>
+      <version>0.4.0</version>
+      <relativePath />
+   </parent>
+   <artifactId>jaxbjpa-utils</artifactId>
+   <version>0.1</version>
+   <name>jaxbjpa-utils</name>
+   <description>generic utilities to make using JAXB and JPA easier</description>
+   <dependencies>
+      <dependency>
+          <groupId>org.javastro</groupId>
+          <artifactId>ivoa-schema</artifactId>
+      </dependency>
+       <dependency>
+         <groupId>org.glassfish.jaxb</groupId>
+         <artifactId>jaxb-runtime</artifactId>
+      </dependency>
+      <dependency>
+         <groupId>jakarta.persistence</groupId>
+         <artifactId>jakarta.persistence-api</artifactId>
+      </dependency>
+   </dependencies>
+   <build>
+      <plugins>
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+          <id>ex2</id> <!--create test jar as an extra -->
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+            <configuration>
+              <classifier>test</classifier>
+            </configuration>
+          </execution>
+          
+        </executions>
+      </plugin>
+     </plugins>
+   </build>
+</project>
+
