@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -110,24 +112,12 @@ public class AbstractJAXBJPATest {
     protected <T> T roundtripXML(JAXBContext jc, T model, Class<T> clazz) throws ParserConfigurationException, JAXBException,
             PropertyException, TransformerFactoryConfigurationError,
             TransformerConfigurationException, TransformerException {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory
-                        .newInstance();
-                dbf.setNamespaceAware(true);
-                Document doc = dbf.newDocumentBuilder().newDocument();
-                Marshaller m = jc.createMarshaller();
+               Marshaller m = jc.createMarshaller();
                 m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-                m.marshal(model, doc);
-                // Set up the output transformer
-                TransformerFactory transfac = TransformerFactory.newInstance();
-                Transformer trans = transfac.newTransformer();
-                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
-                trans.setOutputProperty(OutputKeys.INDENT, "yes");
-            
-                // Print the DOM node
                 StringWriter sw = new StringWriter();
-                StreamResult result = new StreamResult(sw);
-                DOMSource source = new DOMSource(doc);
-                trans.transform(source, result);
+                m.marshal(model, sw);
+                // Set up the output transformer = the direct jaxb marshaller does not aways do a nice job
+           
                 System.out.println(sw.toString());
             
                 //try to read in again
