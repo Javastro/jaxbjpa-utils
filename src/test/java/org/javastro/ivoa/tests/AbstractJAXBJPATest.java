@@ -11,9 +11,6 @@ package org.javastro.ivoa.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -24,47 +21,26 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.PropertyException;
-import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEvent;
 import javax.xml.bind.util.ValidationEventCollector;
-import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
-import org.w3c.dom.Document;
 
 /**
  *  .
  * @author Paul Harrison (paul.harrison@manchester.ac.uk) 
  * @since 5 Nov 2021
  */
-public class AbstractJAXBJPATest {
+public abstract class AbstractJAXBJPATest {
 
-    public static class MySchemaOutputResolver extends SchemaOutputResolver {
-            public Result createOutput(String uri, String suggestedFileName)
-                    throws IOException {
-                String[] parts = uri.split("/");
-    
-    
-                File file = new File(suggestedFileName);//new File(parts[parts.length -2]+".xsd");
-                StreamResult result = new StreamResult(file);
-                System.out.println("uri=" + uri + " " + file.getName());
-                result.setSystemId(file.toURI().toURL().toString());
-                return result;
-            }
-        }
 
     protected javax.persistence.EntityManager setupDB(String puname) {
             Map<String, String> props = new HashMap<>();
@@ -112,19 +88,29 @@ public class AbstractJAXBJPATest {
     protected <T> T roundtripXML(JAXBContext jc, T model, Class<T> clazz) throws ParserConfigurationException, JAXBException,
             PropertyException, TransformerFactoryConfigurationError,
             TransformerConfigurationException, TransformerException {
-               Marshaller m = jc.createMarshaller();
-                m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
                 StringWriter sw = new StringWriter();
+                Marshaller m = jc.createMarshaller();
+                
+                m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
                 m.marshal(model, sw);
-                // Set up the output transformer = the direct jaxb marshaller does not aways do a nice job
-           
-                System.out.println(sw.toString());
+                // Actually pretty Print - as the above formatting instruction does not seem to work
+                // Set up the output transformer
+                TransformerFactory transfac = TransformerFactory.newInstance();
+                Transformer trans = transfac.newTransformer();
+                trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+                trans.setOutputProperty(OutputKeys.INDENT, "yes"); 
+            
+                StringWriter sw2 = new StringWriter();
+                StreamResult result = new StreamResult(sw2);
+                
+                trans.transform(new StreamSource(new StringReader(sw.toString())), result);
+                System.out.println(sw2.toString());
             
                 //try to read in again
                 Unmarshaller um = jc.createUnmarshaller();
                 ValidationEventCollector vc = new javax.xml.bind.util.ValidationEventCollector();
                 um.setEventHandler(vc);
-                JAXBElement<T> el = um.unmarshal(new StreamSource(new StringReader(sw.toString())),clazz);
+                JAXBElement<T> el = um.unmarshal(new StreamSource(new StringReader(sw2.toString())),clazz);
                 if (vc.hasEvents()) {
                     for (ValidationEvent err : vc.getEvents()) {
                         System.err.println(err.getMessage());

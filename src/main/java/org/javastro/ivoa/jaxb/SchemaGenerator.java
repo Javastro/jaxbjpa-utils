@@ -12,14 +12,11 @@
 
 package org.javastro.ivoa.jaxb;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
 
 
 /**
@@ -30,24 +27,15 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class SchemaGenerator {
 
-    private class MySchemaOutputResolver extends SchemaOutputResolver {
-        public Result createOutput(String uri, String suggestedFileName)
-                throws IOException {
-            String[] parts = uri.split("/");
-            
-            
-            File file = new File(parts[parts.length -2]+".xsd");
-            StreamResult result = new StreamResult(file);
-            System.out.println("uri=" + uri + " " + file.getName());
-            result.setSystemId(file.toURI().toURL().toString());
-            return result;
-        }
-    };
-
-    public void generate(String contextPath) throws JAXBException, IOException {
+    
+    public void generate(String context) throws JAXBException, IOException
+    {
+        generate(context,new SchemaNamer());
+    }
+   
+    public void generate(String contextPath,SchemaOutputResolver sor) throws JAXBException, IOException {
         javax.xml.bind.JAXBContext jaxbContext = JAXBContext
                 .newInstance(contextPath);
-        SchemaOutputResolver sor = new MySchemaOutputResolver();
         System.out.println("generating schema for regtap");
         jaxbContext.generateSchema(sor);
     }
