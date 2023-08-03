@@ -3,16 +3,16 @@
    <parent>
       <artifactId>javastro-mavenbase</artifactId>
       <groupId>org.javastro</groupId>
-      <version>0.4.0</version>
+      <version>0.6.0</version>
       <relativePath />
    </parent>
    <artifactId>jaxbjpa-utils</artifactId>
-   <version>0.1.2</version>
+   <version>0.2.0</version>
    <name>jaxbjpa-utils</name>
    <description>generic utilities to make using JAXB and JPA easier</description>
    <dependencies>
       <dependency>
-          <groupId>org.javastro</groupId>
+          <groupId>org.javastro.ivoa</groupId>
           <artifactId>ivoa-schema</artifactId>
       </dependency>
        <dependency>

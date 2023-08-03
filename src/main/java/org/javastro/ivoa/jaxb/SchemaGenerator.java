@@ -14,9 +14,9 @@ package org.javastro.ivoa.jaxb;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.SchemaOutputResolver;
 
 
 /**
@@ -34,7 +34,7 @@ public class SchemaGenerator {
     }
    
     public void generate(String contextPath,SchemaOutputResolver sor) throws JAXBException, IOException {
-        javax.xml.bind.JAXBContext jaxbContext = JAXBContext
+        jakarta.xml.bind.JAXBContext jaxbContext = JAXBContext
                 .newInstance(contextPath);
         System.out.println("generating schema for regtap");
         jaxbContext.generateSchema(sor);

@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.persistence.OneToMany;
+import jakarta.persistence.OneToMany;
 
 public class IvoaJPAUtils {
 
@@ -33,7 +33,7 @@ public class IvoaJPAUtils {
        Class clazz = o.getClass();
        Field[] fields = clazz.getDeclaredFields();
        for (int i = 0; i < fields.length; i++) {
-        OneToMany ann = fields[i].getAnnotation(javax.persistence.OneToMany.class);
+        OneToMany ann = fields[i].getAnnotation(jakarta.persistence.OneToMany.class);
         if (ann != null && ann.mappedBy() != null){
              String mappedByField = ann.mappedBy();    
              fields[i].setAccessible(true);

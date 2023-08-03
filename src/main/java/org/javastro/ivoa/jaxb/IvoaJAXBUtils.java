@@ -20,15 +20,15 @@ import java.io.Writer;
 import java.net.URL;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationException;
-import javax.xml.bind.annotation.XmlSchema;
-import javax.xml.bind.util.ValidationEventCollector;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationException;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.util.ValidationEventCollector;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -239,7 +239,7 @@ public class IvoaJAXBUtils {
         } else {
             um.setSchema(null);
         }
-        javax.xml.bind.util.ValidationEventCollector validationEventCollector = new javax.xml.bind.util.ValidationEventCollector();
+        jakarta.xml.bind.util.ValidationEventCollector validationEventCollector = new jakarta.xml.bind.util.ValidationEventCollector();
         um.setEventHandler(validationEventCollector);
 
         JAXBElement<T> el = um.unmarshal(s, clazz);
@@ -260,7 +260,7 @@ public class IvoaJAXBUtils {
 
     public static <T> Schema findSchema(Class<T> clazz) {
         XmlSchema ann = clazz.getPackage().getAnnotation(
-                javax.xml.bind.annotation.XmlSchema.class);      
+                jakarta.xml.bind.annotation.XmlSchema.class);      
 
         try {
             String namespace = ann.namespace();

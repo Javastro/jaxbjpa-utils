@@ -12,8 +12,8 @@
 
 package org.javastro.ivoa.jaxb;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Utility Factory to create JAXB contexts which know about all the classes necessary for Registry Data Moel.

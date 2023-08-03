@@ -3,7 +3,7 @@ package org.javastro.ivoa.jaxb;
  * Created on 26/09/2022 by Paul Harrison (paul.harrison@manchester.ac.uk).
  */
 
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;

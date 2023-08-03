@@ -11,8 +11,8 @@ package org.javastro.ivoa.jaxb;
 
 import java.lang.annotation.Annotation;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlSchema;
 import javax.xml.namespace.QName;
 
 /**
