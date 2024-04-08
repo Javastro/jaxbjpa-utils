@@ -7,7 +7,7 @@
       <relativePath />
    </parent>
    <artifactId>jaxbjpa-utils</artifactId>
-   <version>0.2.0</version>
+   <version>0.2.1</version>
    <name>jaxbjpa-utils</name>
    <description>generic utilities to make using JAXB and JPA easier</description>
    <dependencies>
