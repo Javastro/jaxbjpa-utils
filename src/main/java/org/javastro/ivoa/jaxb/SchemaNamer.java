@@ -34,7 +34,9 @@ public class SchemaNamer  extends  SchemaOutputResolver {
          n = names.get(namespaceUri);
       }
       else {
-         n = Arrays.stream(namespaceUri.split("/+")).filter(s -> s.length() > 0).map(s -> s+".xsd").reduce((first, second) -> second).orElse(suggestedFileName);
+         n = Arrays.stream(namespaceUri.split("/+")).filter(s -> s.length() > 0)
+                 .filter(s -> !s.matches("v[0-9](\\.[0-9])*")) //exclude things that look like versions
+                 .map(s -> s+".xsd").reduce((first, second) -> second).orElse(suggestedFileName);
       }
       logger.info("schema namespace {} being written to {}",namespaceUri,n);
       return new StreamResult(n);
